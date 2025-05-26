@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BSfitness - Home</title>
+  <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+  <div class="sidebar">
+    <h2>BSfitness</h2>
+    <ul>
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="signin.html">Sign In</a></li>
+    </ul>
+  </div>
+
+  <div class="main">
+    <header>
+      <h1>Welcome to BSfitness</h1>
+    </header>
+
+    <div class="slider-container">
+      <img id="sliderImage" src="images/image1.jpg" alt="Slider Image" onclick="goToPage(currentIndex)" />
+    </div>
+
+    <section class="vertical-boxes">
+      <div class="box" onclick="location.href='bodybuilding.html'">
+        <img src="images/bodybuilding.jpg" alt="Body Building" />
+        <h3>Body Building</h3>
+      </div>
+      <div class="box" onclick="location.href='heightgrowth.html'">
+        <img src="images/height.jpg" alt="Height Growth" />
+        <h3>Height Growth</h3>
+      </div>
+      <div class="box" onclick="location.href='yoga.html'">
+        <img src="images/yoga.jpg" alt="Yoga" />
+        <h3>Yoga</h3>
+      </div>
+    </section>
+  </div>
+  
+
+  <script src="index.js"></script>
+</body>
+</html>
