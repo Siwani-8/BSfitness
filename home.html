@@ -7,18 +7,24 @@
   <link rel="stylesheet" href="index.css" />
 </head>
 <body>
-  <div class="sidebar">
+  <button class="sidebar-toggle" id="sidebarToggle">☰ Menu</button>
+  
+  <div class="sidebar" id="sidebar">
     <h2>BSfitness</h2>
     <ul>
-      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="home.html" class="active">Home</a></li>
       <li><a href="about.html">About</a></li>
-      <li><a href="signin.html">Sign In</a></li>
+      <li id="authLink"><a href="login.html">Login</a></li>
     </ul>
   </div>
 
-  <div class="main">
+  <div class="main" id="main">
     <header>
       <h1>Welcome to BSfitness</h1>
+      <div id="userWelcome" style="display: none;">
+        Welcome back, <span id="username"></span>!
+        <button id="logoutBtn" style="margin-left: 1rem;">Logout</button>
+      </div>
     </header>
 
     <div class="slider-container">
@@ -41,7 +47,67 @@
     </section>
   </div>
   
-
   <script src="index.js"></script>
+  <script>
+    // Sidebar toggle functionality
+    const sidebar = document.getElementById('sidebar');
+    const main = document.getElementById('main');
+    const sidebarToggle = document.getElementById('sidebarToggle');
+
+    sidebarToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('active');
+      main.classList.toggle('shifted');
+    });
+
+    // Close sidebar when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!sidebar.contains(e.target) && !sidebarToggle.contains(e.target) && sidebar.classList.contains('active')) {
+        sidebar.classList.remove('active');
+        main.classList.remove('shifted');
+      }
+    });
+
+    // Check authentication state
+    const checkAuth = async () => {
+      const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+      const authLink = document.getElementById('authLink');
+      const userWelcome = document.getElementById('userWelcome');
+      
+      if (isLoggedIn) {
+        try {
+          const response = await fetch('/api/user');
+          if (response.ok) {
+            const user = await response.json();
+            document.getElementById('username').textContent = user.username;
+            userWelcome.style.display = 'block';
+            authLink.style.display = 'none';
+          } else {
+            localStorage.removeItem('isLoggedIn');
+            userWelcome.style.display = 'none';
+            authLink.style.display = 'block';
+          }
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+        }
+      } else {
+        userWelcome.style.display = 'none';
+        authLink.style.display = 'block';
+      }
+    };
+
+    // Handle logout
+    document.getElementById('logoutBtn')?.addEventListener('click', async () => {
+      try {
+        await fetch('/api/logout', { method: 'POST' });
+        localStorage.removeItem('isLoggedIn');
+        window.location.reload();
+      } catch (error) {
+        console.error('Error logging out:', error);
+      }
+    });
+
+    // Check auth state on page load
+    checkAuth();
+  </script>
 </body>
 </html>
