@@ -4,19 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BSfitness - Dashboard</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <div class="dashboard-container">
-        <h1>Welcome to BSfitness</h1>
-        <p>You are now logged in!</p>
-        <button id="logoutBtn" onclick="logout()">Logout</button>
+    <button class="sidebar-toggle" id="sidebarToggle">☰ Menu</button>
+  
+    <div class="sidebar" id="sidebar">
+        <h2>BSfitness</h2>
+        <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li id="authLink"><a href="index.html">Login</a></li>
+        </ul>
+    </div>
+
+    <div class="main" id="main">
+        <div class="dashboard-container">
+            <h1>Welcome to BSfitness</h1>
+            <p>You are now logged in!</p>
+            <button id="logoutBtn" onclick="logout()">Logout</button>
+        </div>
     </div>
 
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
     <script>
+        // Sidebar toggle functionality
+        const sidebar = document.getElementById('sidebar');
+        const main = document.getElementById('main');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+            main.classList.toggle('shifted');
+        });
+
+        // Close sidebar when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!sidebar.contains(e.target) && !sidebarToggle.contains(e.target) && sidebar.classList.contains('active')) {
+                sidebar.classList.remove('active');
+                main.classList.remove('shifted');
+            }
+        });
+
         // Check if user is logged in
         firebase.auth().onAuthStateChanged((user) => {
             if (!user) {

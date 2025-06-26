@@ -3,111 +3,71 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="BSfitness - Your ultimate destination for bodybuilding, height growth, and yoga. Join us on your fitness journey today!" />
   <title>BSfitness - Home</title>
-  <link rel="stylesheet" href="index.css" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <button class="sidebar-toggle" id="sidebarToggle">☰ Menu</button>
+  <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle navigation menu">☰ Menu</button>
   
-  <div class="sidebar" id="sidebar">
+  <nav class="sidebar" id="sidebar">
     <h2>BSfitness</h2>
     <ul>
-      <li><a href="home.html" class="active">Home</a></li>
+      <li><a href="home.html" class="active" aria-current="page">Home</a></li>
       <li><a href="about.html">About</a></li>
-      <li id="authLink"><a href="login.html">Login</a></li>
+      <li id="authLink"><a href="index.html">Login</a></li>
     </ul>
-  </div>
+  </nav>
 
-  <div class="main" id="main">
+  <main class="main" id="main">
     <header>
       <h1>Welcome to BSfitness</h1>
-      <div id="userWelcome" style="display: none;">
+      <div id="userWelcome" class="user-welcome">
         Welcome back, <span id="username"></span>!
-        <button id="logoutBtn" style="margin-left: 1rem;">Logout</button>
+        <button id="logoutBtn" class="logout-btn">Logout</button>
       </div>
     </header>
 
-    <div class="slider-container">
-      <img id="sliderImage" src="images/image1.jpg" alt="Slider Image" onclick="goToPage(currentIndex)" />
+    <div class="slider-container" role="region" aria-label="Featured content">
+      <img id="sliderImage" 
+           src="images/body building slider.jpg" 
+           alt="Featured fitness program" 
+           loading="eager" 
+           onclick="goToPage()" 
+      />
     </div>
 
     <section class="vertical-boxes">
-      <div class="box" onclick="location.href='bodybuilding.html'">
-        <img src="images/bodybuilding.jpg" alt="Body Building" />
+      <h2 class="visually-hidden">Our Programs</h2>
+      <div class="box" onclick="location.href='bodybuilding.html'" role="link" tabindex="0">
+        <img src="images/bodybuilding.jpg" 
+             alt="Body Building Program" 
+             loading="lazy"
+        />
         <h3>Body Building</h3>
+        <p>Transform your physique with our comprehensive bodybuilding program. Expert guidance on workouts, nutrition, and recovery for maximum muscle growth.</p>
       </div>
-      <div class="box" onclick="location.href='heightgrowth.html'">
-        <img src="images/height.jpg" alt="Height Growth" />
+      <div class="box" onclick="location.href='heightgrowth.html'" role="link" tabindex="0">
+        <img src="images/heightgrowth.jpg" 
+             alt="Height Growth Program" 
+             loading="lazy"
+        />
         <h3>Height Growth</h3>
+        <p>Optimize your growth potential with specialized exercises, proper nutrition, and scientifically-backed techniques for natural height development.</p>
       </div>
-      <div class="box" onclick="location.href='yoga.html'">
-        <img src="images/yoga.jpg" alt="Yoga" />
+      <div class="box" onclick="location.href='yoga.html'" role="link" tabindex="0">
+        <img src="images/yoga.jpg" 
+             alt="Yoga Program" 
+             loading="lazy"
+        />
         <h3>Yoga</h3>
+        <p>Find balance and inner peace through our yoga program. Improve flexibility, strength, and mindfulness with guided sessions for all skill levels.</p>
       </div>
     </section>
-  </div>
+  </main>
   
-  <script src="index.js"></script>
-  <script>
-    // Sidebar toggle functionality
-    const sidebar = document.getElementById('sidebar');
-    const main = document.getElementById('main');
-    const sidebarToggle = document.getElementById('sidebarToggle');
-
-    sidebarToggle.addEventListener('click', () => {
-      sidebar.classList.toggle('active');
-      main.classList.toggle('shifted');
-    });
-
-    // Close sidebar when clicking outside
-    document.addEventListener('click', (e) => {
-      if (!sidebar.contains(e.target) && !sidebarToggle.contains(e.target) && sidebar.classList.contains('active')) {
-        sidebar.classList.remove('active');
-        main.classList.remove('shifted');
-      }
-    });
-
-    // Check authentication state
-    const checkAuth = async () => {
-      const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-      const authLink = document.getElementById('authLink');
-      const userWelcome = document.getElementById('userWelcome');
-      
-      if (isLoggedIn) {
-        try {
-          const response = await fetch('/api/user');
-          if (response.ok) {
-            const user = await response.json();
-            document.getElementById('username').textContent = user.username;
-            userWelcome.style.display = 'block';
-            authLink.style.display = 'none';
-          } else {
-            localStorage.removeItem('isLoggedIn');
-            userWelcome.style.display = 'none';
-            authLink.style.display = 'block';
-          }
-        } catch (error) {
-          console.error('Error fetching user data:', error);
-        }
-      } else {
-        userWelcome.style.display = 'none';
-        authLink.style.display = 'block';
-      }
-    };
-
-    // Handle logout
-    document.getElementById('logoutBtn')?.addEventListener('click', async () => {
-      try {
-        await fetch('/api/logout', { method: 'POST' });
-        localStorage.removeItem('isLoggedIn');
-        window.location.reload();
-      } catch (error) {
-        console.error('Error logging out:', error);
-      }
-    });
-
-    // Check auth state on page load
-    checkAuth();
-  </script>
+  <script src="slider.js"></script>
+  <script src="sidebar.js"></script>
+  <script src="auth.js"></script>
 </body>
 </html>

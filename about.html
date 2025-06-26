@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>About | BSfitness</title>
-  <link rel="stylesheet" href="styleabout.css" />
+  <title>BSfitness - About</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-
-  <div class="sidebar">
-    <div class="menu-icon">☰</div>
-    <div class="logo">BSfitness</div>
-    <nav class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="about.html" class="active">About</a>
-      <a href="signin.html">Sign In</a>
-    </nav>
+  <button class="sidebar-toggle" id="sidebarToggle">☰ Menu</button>
+  
+  <div class="sidebar" id="sidebar">
+    <h2>BSfitness</h2>
+    <ul>
+      <li><a href="home.html">Home</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+      <li id="authLink"><a href="index.html">Login</a></li>
+    </ul>
   </div>
 
-  <div class="main-content">
+  <div class="main" id="main">
     <section class="about-section">
       <h1>About BSfitness</h1>
       <p>
@@ -49,5 +49,24 @@
     </section>
   </div>
 
+  <script>
+    // Sidebar toggle functionality
+    const sidebar = document.getElementById('sidebar');
+    const main = document.getElementById('main');
+    const sidebarToggle = document.getElementById('sidebarToggle');
+
+    sidebarToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('active');
+      main.classList.toggle('shifted');
+    });
+
+    // Close sidebar when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!sidebar.contains(e.target) && !sidebarToggle.contains(e.target) && sidebar.classList.contains('active')) {
+        sidebar.classList.remove('active');
+        main.classList.remove('shifted');
+      }
+    });
+  </script>
 </body>
 </html>

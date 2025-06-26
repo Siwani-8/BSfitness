@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BSfitness - Log in</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>BSfitness - Login</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
@@ -43,36 +43,7 @@
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="script.js"></script>
-
-<script>
-  // Loading screen functionality with smoother transition
-  window.addEventListener('load', function() {
-    // Add a minimum display time for the loading screen
-    const minDisplayTime = 2000; // 2 seconds minimum display time
-    const startTime = Date.now();
-    
-    // Function to hide loading screen
-    const hideLoadingScreen = () => {
-      const loadingScreen = document.getElementById('loading-screen');
-      loadingScreen.style.opacity = '0';
-      
-      // Remove the element after transition completes
-      setTimeout(() => {
-        loadingScreen.style.display = 'none';
-      }, 800); // Match this with the CSS transition time
-    };
-
-    // Ensure minimum display time
-    window.setTimeout(() => {
-      const elapsedTime = Date.now() - startTime;
-      if (elapsedTime < minDisplayTime) {
-        setTimeout(hideLoadingScreen, minDisplayTime - elapsedTime);
-      } else {
-        hideLoadingScreen();
-      }
-    }, 0);
-  });
-</script>
+<script src="loading.js"></script>
 
 </body>
 </html>

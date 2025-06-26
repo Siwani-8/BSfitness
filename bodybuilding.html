@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BSfitness - Bodybuilding Workout</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <button class="sidebar-toggle" id="sidebarToggle">☰ Menu</button>
+  
+    <nav class="sidebar" id="sidebar">
+        <h2>BSfitness</h2>
+        <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li id="authLink"><a href="index.html">Login</a></li>
+        </ul>
+    </nav>
+
+    <main class="main" id="main">
+        <header>
+            <h1>Bodybuilding Workout</h1>
+        </header>
+
+        <div class="workout-container">
+            <div class="timer-section">
+                <div class="timer" id="timer">
+                    <span id="minutes">00</span>:<span id="seconds">00</span>
+                </div>
+                <div class="exercise-info">
+                    <h2 id="currentExercise">Get Ready!</h2>
+                    <p id="nextExercise">Next: Push-ups</p>
+                </div>
+                <div class="exercise-image-container">
+                    <img id="exerciseImage" src="images/warmup.jpg" alt="Exercise demonstration" />
+                </div>
+                <div class="visual-guide">
+                    <div class="progress-bar">
+                        <div id="progressFill"></div>
+                    </div>
+                    <div class="exercise-phases">
+                        <div class="phase warm-up">Warm-up</div>
+                        <div class="phase exercise">Exercise</div>
+                        <div class="phase rest">Rest</div>
+                        <div class="phase break">Break</div>
+                        <div class="phase cool-down">Cool-down</div>
+                    </div>
+                    <div id="currentPhase" class="current-phase">
+                        Current Phase: <span>Get Ready</span>
+                    </div>
+                </div>
+                <div class="timer-controls">
+                    <button id="prevBtn" class="workout-btn" disabled>Previous</button>
+                    <button id="startBtn" class="workout-btn">Start Workout</button>
+                    <button id="pauseBtn" class="workout-btn" disabled>Pause</button>
+                    <button id="skipBtn" class="workout-btn" disabled>Skip Exercise</button>
+                </div>
+            </div>
+
+            <div class="exercise-list">
+                <h2>Workout Plan (30 minutes)</h2>
+                <div id="exerciseList" class="exercise-items">
+                    <!-- Exercise items will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <audio id="beepSound" src="C:/Users/binod/BS/assets/beep.mp3" preload="auto"></audio>
+    <script src="sidebar.js"></script>
+    <script src="bodybuilding.js"></script>
+</body>
+</html> 
